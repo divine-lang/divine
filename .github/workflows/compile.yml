@@ -1,0 +1,42 @@
+name: Compile
+
+on:
+  pull_request:
+  push:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    concurrency:
+        group: ${{ github.ref }}-${{ github.base_ref }}-${{ github.head_ref }}-Linux
+        cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: prepare local xmake
+        run: cp -rf . ../xmake-source
+      - uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: local#../xmake-source
+      - uses: little-core-labs/get-git-tag@v3.0.2
+        id: tagName
+
+      - name: Build
+        run: |
+          xmake
+      - name: Zip
+        run: |
+          zip -r divine-linux-x86_64.zip ./build/linux/x86_64/release/
+      - name: Publish
+        if: github.event.action == 'published'
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: divine-linux-x86_64.zip
+          asset_name: divine-${{ steps.tagName.outputs.tag }}.x86_64.zip
+          asset_content_type: application/zip
