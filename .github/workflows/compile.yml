@@ -16,8 +16,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: true
-      - name: prepare local xmake
-        run: cp -rf . ../xmake-source
       - uses: xmake-io/github-action-setup-xmake@v1
         with:
           xmake-version: local#../xmake-source
