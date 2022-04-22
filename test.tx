@@ -1,0 +1,10 @@
+use "stdlib.tx"
+
+exe {
+    print("compile time!");
+}
+
+I8 main() {
+    CHAR you;
+    print(you);
+}
