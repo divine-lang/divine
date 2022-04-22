@@ -23,6 +23,11 @@ jobs:
       - name: Build
         run: |
           xmake
+      - name: QBE
+        run: |
+          git clone git://c9x.me/qbe.git
+          make -C qbe/
+          mv qbe/obj/qbe ./build/linux/x86_64/release/
       - name: Zip
         run: |
           zip -r divine-linux-x86_64.zip ./build/linux/x86_64/release/
