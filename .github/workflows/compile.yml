@@ -29,6 +29,6 @@ jobs:
       - name: Publish
         uses: softprops/action-gh-release@v1
         with: 
-          tag_name: push-${{ steps.tagName.outputs.tag }}-linux
+          tag_name: push-$GIT_TAG_NAME-linux
           files: |
             divine-linux-x86_64.zip
