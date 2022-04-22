@@ -8,7 +8,7 @@ A simple language written in C
 
 
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/w/divine-lang/divine?style=for-the-badge)
-
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/divine-lang/divine/Compile?label=linux%20build&style=for-the-badge)
 
 ## Usage/Examples
 Simple hello:
